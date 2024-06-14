@@ -2,8 +2,7 @@
 @import url("https://fonts.googleapis.com/css?family=Baloo+Paaji|Open+Sans:300,300i,400,400i,600,600i,700,700i");
 
 
-* { box-sizing: border-box; }
-body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+
 .slider {
     display: flex;
     justify-content: center;
@@ -42,10 +41,7 @@ body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
     max-width: 700px;
     max-height:700px;
 }
-img {
-    width: 100%;
-    display: block;
-}
+
 
 .next {
     right: 0;
