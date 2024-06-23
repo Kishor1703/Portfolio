@@ -12104,6 +12104,16 @@ pre .code {
   }
 }
 
+.container1{
+  background-color: #fff;
+  padding: 20px 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
 .header {
   position: relative;
   height: 100vh;
@@ -12124,6 +12134,20 @@ pre .code {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
+}
+
+.contact{
+  font-size:large;
+  font-family:Arial, Helvetica, sans-serif;
+  
+  
+}
+
+.sub{
+  font-size:large;
+  font-family:Arial, Helvetica, sans-serif;
+  font-weight: bolder;
+ 
 }
 
 .header .overlay {
