@@ -12139,14 +12139,17 @@ pre .code {
 .contact{
   font-size:large;
   font-family:Arial, Helvetica, sans-serif;
-  
+  font-weight: bold;
   
 }
 
 .sub{
+
+  color: #212529;
   font-size:large;
   font-family:Arial, Helvetica, sans-serif;
   font-weight: bolder;
+  
  
 }
 
