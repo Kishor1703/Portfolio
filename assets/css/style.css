@@ -12143,6 +12143,11 @@ pre .code {
   
 }
 
+.cert{
+  display: flex;
+  justify-content: center;
+}
+
 .sub{
 
   color: #212529;
