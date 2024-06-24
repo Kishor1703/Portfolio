@@ -11195,7 +11195,7 @@ p {
   min-height: 230px;
   border: 1px solid #dee2e6;
   overflow: hidden;
-  border-radius: 3px;
+  border-radius: 5px;
 }
 
 .service-card .body {
@@ -11204,7 +11204,7 @@ p {
 
 .service-card .body img.icon {
   margin-top: 40px;
-  width: 55px;
+  width: 60px;
   margin-bottom: 25px;
   -webkit-transition: all, 0.3s;
   transition: all, 0.3s;
@@ -11221,6 +11221,7 @@ p {
   position: absolute;
   bottom: -100%;
   opacity: 0;
+  text-align: center;
   visibility: hidden;
   -webkit-transition: all, 0.3s;
   transition: all, 0.3s;
