@@ -11450,6 +11450,22 @@ p {
   border-radius: 0;
 }
 
+.language-section {
+  padding: 50px 0;
+}
+.language {
+  margin-bottom: 30px;
+}
+
+.progress-bar {
+  height: 50px;
+  width: 30px;
+}
+
+.soft-skills-section {
+  padding: 50px 0;
+}
+
 .testimonial-card-title {
   margin-top: 20px;
   font-size: calc(14px + (18 - 14) * ((100vw - 300px) / (1300 - 300)));
