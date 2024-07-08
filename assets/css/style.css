@@ -11254,7 +11254,7 @@ p {
 }
 
 .portfolio-card .portfolio-card-img {
-  width: 100%;
+  width: 50%;
 }
 
 .portfolio-card .portfolio-card-overlay {
@@ -11456,6 +11456,11 @@ p {
 }
 .language {
   margin-bottom: 30px;
+}
+
+.img{
+  height: 400px;
+  width: 400px;
 }
 
 .progress-bar {
