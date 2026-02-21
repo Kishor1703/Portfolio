@@ -903,7 +903,6 @@ export default function Portfolio() {
         <div style={{ fontFamily: "'Syne',sans-serif", fontWeight: 800, fontSize: "1.2rem" }}>
           <span className="grad-text">Kishor Kumar S</span>
         </div>
-        <p style={{ color: "#8888aa", fontSize: "0.85rem" }}>© 2025 · Built with React + Vite · All rights reserved</p>
         <div className="footer-links" style={{ display: "flex", gap: "1.5rem" }}>
           {NAV.map(n => (
             <span key={n} style={{ color: "#8888aa", fontSize: "0.8rem", cursor: "pointer", fontFamily: "'Syne',sans-serif", fontWeight: 600, transition: "color 0.2s" }}
