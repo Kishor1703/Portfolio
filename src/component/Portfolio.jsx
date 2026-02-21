@@ -43,6 +43,7 @@ const GLOBAL_CSS = `
 
   .grad-text { background: linear-gradient(135deg,#00e5ff,#a855f7,#ff6b35); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
   .grad-text2 { background: linear-gradient(90deg,#00e5ff,#a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .hero-title { max-width: 100%; overflow-wrap: anywhere; }
 
   .glow-btn {
     background: linear-gradient(135deg,#00e5ff,#a855f7,#ff6b35); border: none; color: #fff;
@@ -72,6 +73,20 @@ const GLOBAL_CSS = `
   .nav-link:hover { color: #fff; }
   .nav-link:hover::after,.nav-link.active::after { transform: scaleX(1); }
   .nav-link.active { color: #fff; }
+
+  .nav-toggle {
+    display: none;
+    width: 40px; height: 40px; border-radius: 12px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: #e8e8f0;
+    align-items: center; justify-content: center;
+    cursor: pointer;
+  }
+
+  .nav-drawer {
+    display: none;
+  }
 
   .fade-in { opacity:0; transform:translateY(30px); transition:opacity 0.7s ease,transform 0.7s ease; }
   .fade-in.visible { opacity:1; transform:translateY(0); }
@@ -147,7 +162,55 @@ const GLOBAL_CSS = `
   @media (max-width:900px) {
     .grid-3 { grid-template-columns:1fr !important; }
     .grid-2 { grid-template-columns:1fr !important; }
-    .hero-flex { flex-direction:column !important; text-align:center; }
+    .hero-flex { flex-direction:column !important; text-align:center; gap: 2.2rem !important; }
+    .site-nav { padding: 0.8rem 1.2rem !important; gap: 0.6rem; }
+    .nav-links { flex-wrap: wrap; gap: 1rem !important; justify-content: center; }
+    .nav-cta { padding: 0.5rem 1rem !important; font-size: 0.78rem !important; }
+    .hero-section { padding-top: 88px !important; }
+    .hero-wrap { padding: 0 1.5rem !important; }
+    .hero-cta { justify-content: center; }
+    .hero-socials { justify-content: center; }
+    .hero-media { flex: 1 1 280px !important; }
+    .img-ring { width: 240px; height: 240px; }
+    .stat-num { font-size: 2.4rem; }
+    .section-pad { padding: 5.5rem 1.6rem !important; }
+    .footer { padding: 2rem 1.5rem !important; text-align: center; }
+    .footer-links { justify-content: center; flex-wrap: wrap; }
+  }
+
+  @media (max-width:600px) {
+    .site-nav { padding: 0.7rem 1rem !important; }
+    .nav-brand { font-size: 1.05rem !important; }
+    .nav-links { gap: 0.8rem !important; }
+    .nav-link { font-size: 0.75rem; }
+    .nav-links { display: none !important; }
+    .nav-cta { display: none !important; }
+    .nav-toggle { display: inline-flex; }
+    .nav-drawer {
+      display: block;
+      position: absolute; top: 100%; left: 0; right: 0;
+      background: rgba(10,10,26,0.96);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding: 0.8rem 1rem 1rem;
+      backdrop-filter: blur(24px);
+    }
+    .nav-drawer ul { list-style: none; display: flex; flex-direction: column; gap: 0.8rem; }
+    .nav-drawer .nav-link { font-size: 0.85rem; }
+    .nav-drawer-actions { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-top: 0.6rem; }
+    .hero-wrap { padding: 0 1rem !important; }
+    .hero-title { font-size: clamp(2rem,10vw,3.1rem) !important; line-height: 1.02 !important; word-break: break-word; letter-spacing: 0.01em; }
+    .hero-cta { flex-direction: column; align-items: stretch; }
+    .hero-cta .glow-btn,
+    .hero-cta .outline-btn { width: 100%; }
+    .hero-socials { gap: 0.6rem; }
+    .hero-media { width: 100%; }
+    .img-ring { width: 210px; height: 210px; margin: 0 auto; }
+    .hero-media svg { display: none !important; }
+    .img-ring { padding: 2px; box-shadow: 0 0 24px rgba(0,229,255,0.18), 0 0 40px rgba(168,85,247,0.12); }
+    .hero-media [style*="position: absolute"] { max-width: 100%; }
+    .hero-media [style*="right: \"-20%\""],
+    .hero-media [style*="right: \"-24%\""],
+    .hero-media [style*="left: \"-20%\""] { display: none !important; }
   }
 `;
 
@@ -321,6 +384,7 @@ export default function Portfolio() {
   const [activeNav, setActiveNav] = useState("Home");
   const [certTab, setCertTab] = useState("All");
   const [statsRun, setStatsRun] = useState(false);
+  const [navOpen, setNavOpen] = useState(false);
   const statsRef = useRef();
 
   useEffect(() => {
@@ -353,7 +417,11 @@ export default function Portfolio() {
       window.open(gmail, "_blank", "noopener,noreferrer");
     }
   };
-  const scrollTo = (id) => { setActiveNav(id); document.getElementById(id)?.scrollIntoView({ behavior: "smooth" }); };
+  const scrollTo = (id) => {
+    setActiveNav(id);
+    setNavOpen(false);
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  };
   const filteredCerts = certTab === "All" ? CERTS : CERTS.filter(c => c.type === certTab);
 
   return (
@@ -362,42 +430,68 @@ export default function Portfolio() {
       <div className="orb orb1" /><div className="orb orb2" /><div className="orb orb3" />
 
       {/* ── NAV ── */}
-      <nav style={{
+      <nav className="site-nav" style={{
         position: "fixed", top: 0, left: 0, right: 0, zIndex: 200,
         background: "rgba(10,10,26,0.88)", backdropFilter: "blur(24px)",
         borderBottom: "1px solid rgba(255,255,255,0.06)",
         display: "flex", alignItems: "center", justifyContent: "space-between",
         padding: "1.1rem 4rem",
       }}>
-        <div style={{ fontFamily: "'Syne',sans-serif", fontWeight: 800, fontSize: "1.3rem" }}>
+        <div className="nav-brand" style={{ fontFamily: "'Syne',sans-serif", fontWeight: 800, fontSize: "1.3rem" }}>
           <span className="grad-text">KK</span>
           <span style={{ color: "rgba(255,255,255,0.25)", margin: "0 8px" }}>·</span>
           <span style={{ fontSize: "0.75rem", color: "#8888aa", letterSpacing: "0.12em", textTransform: "uppercase" }}>Portfolio</span>
         </div>
-        <ul style={{ display: "flex", gap: "2.5rem", listStyle: "none" }}>
+        <ul className="nav-links" style={{ display: "flex", gap: "2.5rem", listStyle: "none" }}>
           {NAV.map(n => (
             <li key={n} className={`nav-link ${activeNav === n ? "active" : ""}`} onClick={() => scrollTo(n)}>{n}</li>
           ))}
         </ul>
-        <button className="glow-btn" style={{ padding: "0.6rem 1.4rem", fontSize: "0.82rem" }} onClick={() => scrollTo("Contact")}>
+        <button className="glow-btn nav-cta" style={{ padding: "0.6rem 1.4rem", fontSize: "0.82rem" }} onClick={() => scrollTo("Contact")}>
           Hire Me
         </button>
+        <button
+          className="nav-toggle"
+          type="button"
+          aria-label="Toggle navigation"
+          aria-expanded={navOpen}
+          onClick={() => setNavOpen(v => !v)}
+        >
+          {navOpen ? "×" : "≡"}
+        </button>
+        {navOpen && (
+          <div className="nav-drawer">
+            <ul>
+              {NAV.map(n => (
+                <li key={n} className={`nav-link ${activeNav === n ? "active" : ""}`} onClick={() => scrollTo(n)}>{n}</li>
+              ))}
+            </ul>
+            <div className="nav-drawer-actions">
+              <button className="glow-btn" style={{ padding: "0.55rem 1.2rem", fontSize: "0.8rem" }} onClick={() => scrollTo("Contact")}>
+                Hire Me
+              </button>
+              <button className="outline-btn" style={{ padding: "0.5rem 1.1rem", fontSize: "0.8rem" }} onClick={downloadCV}>
+                Download CV
+              </button>
+            </div>
+          </div>
+        )}
       </nav>
 
       {/* ── HERO ── */}
-      <section id="Home" style={{ minHeight: "100vh", display: "flex", alignItems: "center", paddingTop: "90px", position: "relative", overflow: "hidden" }}>
+      <section id="Home" className="hero-section" style={{ minHeight: "100vh", display: "flex", alignItems: "center", paddingTop: "90px", position: "relative", overflow: "hidden" }}>
         <div style={{
           position: "absolute", inset: 0, zIndex: 0,
           backgroundImage: "linear-gradient(rgba(0,229,255,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,255,0.04) 1px,transparent 1px)",
           backgroundSize: "60px 60px",
         }} />
-        <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 4rem", width: "100%", position: "relative", zIndex: 1 }}>
+        <div className="hero-wrap" style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 4rem", width: "100%", position: "relative", zIndex: 1 }}>
           <div className="hero-flex" style={{ display: "flex", alignItems: "center", gap: "5rem" }}>
             <div style={{ flex: 1 }}>
               <div style={{ marginBottom: "1.2rem" }}>
                 <span className="tag"> Open to opportunities</span>
               </div>
-              <h1 style={{ fontFamily: "'Syne',sans-serif", fontWeight: 800, fontSize: "clamp(3rem,6vw,5.5rem)", lineHeight: 1.05, marginBottom: "1.2rem" }}>
+              <h1 className="hero-title" style={{ fontFamily: "'Syne',sans-serif", fontWeight: 800, fontSize: "clamp(3rem,6vw,5.5rem)", lineHeight: 1.05, marginBottom: "1.2rem" }}>
                 Kishor<br />
                 <span className="grad-text">Kumar S</span><br />
                 <span style={{ color: "rgba(255,255,255,0.25)", fontSize: "0.55em", letterSpacing: "0.2em", textTransform: "uppercase" }}>Developer</span>
@@ -405,12 +499,12 @@ export default function Portfolio() {
               <p style={{ color: "#8888aa", lineHeight: 1.9, maxWidth: "480px", marginBottom: "2.5rem", fontSize: "1.05rem" }}>
                 Motivated CS graduate skilled in Full Stack Development, Docker, CI/CD pipelines, and cloud deployment. Building scalable web apps and automating deployments with GitHub Actions.
               </p>
-              <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
+              <div className="hero-cta" style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
                 <button className="glow-btn" onClick={() => scrollTo("Projects")}>View Projects</button>
                 <button className="outline-btn" onClick={() => scrollTo("Contact")}>Get In Touch</button>
                 <button className="outline-btn" onClick={downloadCV}>Download CV</button>
               </div>
-              <div style={{ display: "flex", gap: "0.8rem", marginTop: "2.5rem", flexWrap: "wrap" }}>
+              <div className="hero-socials" style={{ display: "flex", gap: "0.8rem", marginTop: "2.5rem", flexWrap: "wrap" }}>
                 {SOCIAL_LINKS.map(s => (
                   s.label === "Email" ? (
                     <button
@@ -451,7 +545,7 @@ export default function Portfolio() {
             </div>
 
             {/* ── PROFILE IMAGE ── */}
-            <div className="float-anim" style={{ flex: "0 0 380px", display: "flex", justifyContent: "center", alignItems: "center" }}>
+            <div className="float-anim hero-media" style={{ flex: "0 0 380px", display: "flex", justifyContent: "center", alignItems: "center" }}>
               <div style={{ position: "relative" }}>
 
                 {/* spinning dashed ring */}
@@ -516,7 +610,7 @@ export default function Portfolio() {
       </section>
 
       {/* ── ABOUT ── */}
-      <section id="About" style={{ padding: "8rem 4rem", maxWidth: "1200px", margin: "0 auto" }}>
+      <section id="About" className="section-pad" style={{ padding: "8rem 4rem", maxWidth: "1200px", margin: "0 auto" }}>
         <FadeSection>
           <div style={{ marginBottom: "4rem" }}>
             <span className="tag" style={{ marginBottom: "1rem", display: "inline-block" }}>About Me</span>
@@ -589,7 +683,7 @@ export default function Portfolio() {
       </div>
 
       {/* ── PROJECTS ── */}
-      <section id="Projects" style={{ padding: "8rem 4rem", maxWidth: "1200px", margin: "0 auto" }}>
+      <section id="Projects" className="section-pad" style={{ padding: "8rem 4rem", maxWidth: "1200px", margin: "0 auto" }}>
         <FadeSection>
           <div style={{ marginBottom: "4rem" }}>
             <span className="tag" style={{ marginBottom: "1rem", display: "inline-block" }}>Work</span>
@@ -619,7 +713,7 @@ export default function Portfolio() {
       </section>
 
       {/* ── RESUME ── */}
-      <section id="Resume" style={{
+      <section id="Resume" className="section-pad" style={{
         padding: "8rem 4rem", background: "rgba(255,255,255,0.01)",
         borderTop: "1px solid rgba(255,255,255,0.04)",
       }}>
@@ -689,7 +783,7 @@ export default function Portfolio() {
       </section>
 
       {/* ── CERTIFICATES ── */}
-      <section id="Certificates" style={{ padding: "8rem 4rem", maxWidth: "1200px", margin: "0 auto" }}>
+      <section id="Certificates" className="section-pad" style={{ padding: "8rem 4rem", maxWidth: "1200px", margin: "0 auto" }}>
         <FadeSection>
           <div style={{ marginBottom: "3rem" }}>
             <span className="tag" style={{ marginBottom: "1rem", display: "inline-block" }}>Achievements</span>
@@ -724,7 +818,7 @@ export default function Portfolio() {
       </section>
 
       {/* ── CONTACT ── */}
-      <section id="Contact" style={{
+      <section id="Contact" className="section-pad" style={{
         padding: "8rem 4rem",
         background: "linear-gradient(180deg,transparent,rgba(168,85,247,0.05),transparent)",
         borderTop: "1px solid rgba(255,255,255,0.04)",
@@ -799,7 +893,7 @@ export default function Portfolio() {
       </section>
 
       {/* ── FOOTER ── */}
-      <footer style={{
+      <footer className="footer" style={{
         borderTop: "1px solid rgba(255,255,255,0.06)",
         padding: "3rem 4rem",
         display: "flex", alignItems: "center", justifyContent: "space-between",
@@ -810,7 +904,7 @@ export default function Portfolio() {
           <span className="grad-text">Kishor Kumar S</span>
         </div>
         <p style={{ color: "#8888aa", fontSize: "0.85rem" }}>© 2025 · Built with React + Vite · All rights reserved</p>
-        <div style={{ display: "flex", gap: "1.5rem" }}>
+        <div className="footer-links" style={{ display: "flex", gap: "1.5rem" }}>
           {NAV.map(n => (
             <span key={n} style={{ color: "#8888aa", fontSize: "0.8rem", cursor: "pointer", fontFamily: "'Syne',sans-serif", fontWeight: 600, transition: "color 0.2s" }}
               onClick={() => scrollTo(n)}
