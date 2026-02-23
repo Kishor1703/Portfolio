@@ -1,5 +1,16 @@
 import { useState, useEffect, useRef } from "react";
 import profileImg from "../assets/kishorkumar.jpeg";
+import cert1 from "../assets/cert/10.jpeg";
+import cert2 from "../assets/cert/6.jpeg";
+import cert3 from "../assets/cert/8.jpeg";
+import cert4 from "../assets/cert/5.jpeg";
+import cert5 from "../assets/cert/1.jpeg";
+import cert7 from "../assets/cert/3.jpeg";
+import cert8 from "../assets/cert/4.jpeg";
+import cert9 from "../assets/cert/7.jpeg";
+import cert10 from "../assets/cert/9.jpeg";
+import cert11 from "../assets/cert/11.jpeg";
+
 /* ─── GLOBAL STYLES ───────────────────────────────────────────────── */
 const GLOBAL_CSS = `
   @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Epilogue:wght@300;400;500;600&display=swap');
@@ -132,6 +143,69 @@ const GLOBAL_CSS = `
   .tl-dot { width:12px; height:12px; border-radius:50%; background:linear-gradient(135deg,#00e5ff,#a855f7); flex-shrink:0; margin-top:5px; box-shadow:0 0 10px rgba(0,229,255,0.6); }
   .tl-line { width:2px; flex-grow:1; background:linear-gradient(180deg,rgba(0,229,255,0.4),transparent); margin:4px 5px 0; }
 
+  .cert-img-wrap {
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.04);
+    padding: 10px;
+    margin-bottom: 1.2rem;
+    aspect-ratio: 16 / 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: zoom-in;
+  }
+  .cert-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+
+  .cert-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(5, 6, 14, 0.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2.5rem 1.5rem;
+    backdrop-filter: blur(6px);
+  }
+  .cert-modal-inner {
+    max-width: min(1100px, 92vw);
+    max-height: 82vh;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 18px;
+    padding: 14px;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .cert-modal-img {
+    max-width: 100%;
+    max-height: 78vh;
+    object-fit: contain;
+    display: block;
+  }
+  .cert-modal-close {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.15);
+    background: rgba(255,255,255,0.06);
+    color: #fff;
+    font-size: 1.2rem;
+    cursor: pointer;
+  }
+
   @keyframes float { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-12px); } }
   .float-anim { animation:float 4s ease-in-out infinite; }
   @keyframes rotate-slow { to { transform:rotate(360deg); } }
@@ -215,7 +289,7 @@ const GLOBAL_CSS = `
 `;
 
 /* ─── DATA (Kishor Kumar S) ───────────────────────────────────────── */
-const NAV = ["Home","About","Projects","Resume","Certificates","Contact"];
+const NAV = ["Home", "About", "Projects", "Resume", "Certificates", "Contact"];
 
 const SKILLS = [
   { name: "Java", level: 80 },
@@ -239,13 +313,15 @@ const PROJECTS = [
     title: "Feedback System",
     desc: "A web-based student feedback system to collect and analyze faculty performance. Features interactive dashboards with real-time data visualization using Chart.js.",
     tech: ["React.js", "Node.js", "MySQL", "Express.js"],
-    liveUrl: "https://feedback.ssmiet.ac.in/",   githubUrl: "",},
+    liveUrl: "https://feedback.ssmiet.ac.in/", githubUrl: "",
+  },
   {
     icon: "🏫",
     title: "College Website",
     desc: "Designed and deployed the official website for SSM Institute of Engineering and Technology. Fully responsive and production-ready.",
     tech: ["HTML5", "CSS3", "JavaScript"],
-    liveUrl: "https://ssmiet.ac.in/",  githubUrl: "",},
+    liveUrl: "https://ssmiet.ac.in/", githubUrl: "",
+  },
   {
     icon: "💰",
     title: "Wallet Wise",
@@ -253,6 +329,30 @@ const PROJECTS = [
     tech: ["React.js", "Node.js", "MongoDB", "Express.js"],
     liveUrl: "https://wallet-wise-one.vercel.app/",
     githubUrl: "https://github.com/Kishor1703/WalletWise",
+  },
+  {
+    icon: "🤖",
+    title: "Face Recognition System",
+    desc: "Developed a real-time gesture recognition system using OpenCV.",
+    tech: ["Python", "OpenCV"],
+    liveUrl: "",
+    githubUrl: "https://github.com/Kishor1703/Face-Recognition",
+  },
+  {
+    icon: "📱",
+    title: "Calculator App",
+    desc: "Developed a full-featured calculator app using Flutter and Dart.",
+    tech: ["Flutter", "Dart"],
+    liveUrl: "",
+    githubUrl: "https://github.com/Kishor1703/Calculator",
+  },
+  {
+    icon: "📱",
+    title: "To-Do List App",
+    desc: "Developed a full-featured to-do list app using Flutter and Dart.",
+    tech: ["Flutter", "Dart"],
+    liveUrl: "",
+    githubUrl: "https://github.com/Kishor1703/todo_list",
   },
 ];
 
@@ -295,10 +395,16 @@ const EDUCATION = [
 ];
 
 const CERTS = [
-  { title: "Full Stack Developer Intern", org: "MailerJobs, Bangalore", type: "Internship", emoji: "💼" },
-  { title: "AI & Computer Vision Intern", org: "Maxelerator Foundation", type: "Internship", emoji: "🤖" },
-  { title: "College Website", org: "SSM Institute of Engineering and Technology", type: "Project", emoji: "🎓" },
-  { title: "Feedback System", org: "SSM Institute of Engineering and Technology", type: "Project", emoji: "📝" },
+  { title: "Full Stack Developer Intern", org: "MailerJobs, Bangalore", type: "Internship", emoji: "💼", image: cert1 },
+  { title: "AI & Computer Vision Intern", org: "Maxelerator Foundation", type: "Internship", emoji: "🤖", image: cert2 },
+  { title: "College Website", org: "SSM IET", type: "Project", emoji: "🎓", image: cert3 },
+  { title: "Feedback System", org: "SSM IET", type: "Project", emoji: "📝", image: cert4 },
+  { title: "Designing Course", org: "Qaroo Learnings India PVT", type: "Course", emoji: "📝", image: cert7 },
+  { title: "Python", org: "CADD TECHNOLOGIES", type: "Course", emoji: "📝", image: cert8 },
+  { title: "Web Technologies", org: "SILICON software services", type: "Course", emoji: "📝", image: cert9 },
+  { title: "Internal SIH", org: "SSM IET", type: "Project", emoji: "📝", image: cert11},
+  { title: "Award", org: "SSM IET", type: "Project", emoji: "📝", image: cert5 },
+ 
 ];
 
 const STATS = [
@@ -308,7 +414,7 @@ const STATS = [
   { icon: "🎓", val: 8, suffix: ".01", label: "GPA" },
 ];
 
-const CERT_TABS = ["All", "Internship", "Courses", "Achieved"];
+const CERT_TABS = ["All", "Internship", "Course", "Project"];
 const SOCIAL_LINKS = [
   { label: "LinkedIn", href: "https://www.linkedin.com/in/kishor-kumar-s-6806a125b" },
   { label: "GitHub", href: "https://github.com/Kishor1703" },
@@ -385,6 +491,7 @@ export default function Portfolio() {
   const [certTab, setCertTab] = useState("All");
   const [statsRun, setStatsRun] = useState(false);
   const [navOpen, setNavOpen] = useState(false);
+  const [activeCert, setActiveCert] = useState(null);
   const statsRef = useRef();
 
   useEffect(() => {
@@ -563,7 +670,7 @@ export default function Portfolio() {
                 {/* gradient border + image */}
                 <div className="img-ring">
                   <div className="img-ring-inner">
-                  
+
                     <img
                       className="profile-img"
                       src={profileImg}
@@ -585,9 +692,9 @@ export default function Portfolio() {
 
                 {/* floating tech badges */}
                 {[
-                  { top: "2%",   right: "-20%", label: "⚛️ React"  },
-                  { bottom: "4%", left: "-20%",  label: "🐳 Docker" },
-                  { top: "44%",  right: "-24%", label: "🍃 Spring" },
+                  { top: "2%", right: "-20%", label: "⚛️ React" },
+                  { bottom: "4%", left: "-20%", label: "🐳 Docker" },
+                  { top: "44%", right: "-24%", label: "🍃 Spring" },
                 ].map(b => (
                   <div key={b.label} style={{
                     position: "absolute", ...b, padding: "0.45rem 1rem", borderRadius: "50px",
@@ -703,7 +810,7 @@ export default function Portfolio() {
                   {p.tech.map(t => <span key={t} className="tag" style={{ fontSize: "0.72rem" }}>{t}</span>)}
                 </div>
                 <div style={{ display: "flex", gap: "0.8rem" }}>
-                  <a href={p.liveUrl} target="_blank" rel="noreferrer" className="glow-btn" style={{ padding: "0.55rem 1.3rem", fontSize: "0.8rem", textDecoration: "none", display: "inline-block" }}>Live</a>
+                  {p.liveUrl && <a href={p.liveUrl} target="_blank" rel="noreferrer" className="glow-btn" style={{ padding: "0.55rem 1.3rem", fontSize: "0.8rem", textDecoration: "none", display: "inline-block" }}>Live</a>}
                   {p.githubUrl && <a href={p.githubUrl} target="_blank" rel="noreferrer" className="outline-btn" style={{ padding: "0.5rem 1.2rem", fontSize: "0.8rem", textDecoration: "none", display: "inline-block" }}>GitHub</a>}
                 </div>
               </div>
@@ -801,13 +908,27 @@ export default function Portfolio() {
           {filteredCerts.map((c, i) => (
             <FadeSection key={c.title} style={{ transitionDelay: `${i * 0.08}s` }}>
               <div className="glass-card" style={{ padding: "2rem", cursor: "pointer" }}>
-                <div style={{
-                  width: "56px", height: "56px", borderRadius: "16px",
-                  background: "linear-gradient(135deg,rgba(0,229,255,0.15),rgba(168,85,247,0.2))",
-                  border: "1px solid rgba(255,255,255,0.1)",
-                  display: "flex", alignItems: "center", justifyContent: "center",
-                  fontSize: "1.8rem", lineHeight: 1, textAlign: "center", margin: "0 auto 1.2rem",
-                }}>{c.emoji}</div>
+                {c.image ? (
+                  <div
+                    className="cert-img-wrap"
+                    onClick={() => setActiveCert(c)}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") setActiveCert(c);
+                    }}
+                  >
+                    <img className="cert-img" src={c.image} alt={`${c.title} certificate`} />
+                  </div>
+                ) : (
+                  <div style={{
+                    width: "56px", height: "56px", borderRadius: "16px",
+                    background: "linear-gradient(135deg,rgba(0,229,255,0.15),rgba(168,85,247,0.2))",
+                    border: "1px solid rgba(255,255,255,0.1)",
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                    fontSize: "1.8rem", lineHeight: 1, textAlign: "center", margin: "0 auto 1.2rem",
+                  }}>{c.emoji}</div>
+                )}
                 <h3 style={{ fontFamily: "'Syne',sans-serif", fontWeight: 700, fontSize: "1rem", marginBottom: "0.5rem" }}>{c.title}</h3>
                 <p style={{ color: "#8888aa", fontSize: "0.85rem", marginBottom: "1rem" }}>{c.org}</p>
                 <span className="tag" style={{ background: "rgba(0,229,255,0.08)", borderColor: "rgba(0,229,255,0.2)", color: "#00e5ff" }}>{c.type}</span>
@@ -816,6 +937,15 @@ export default function Portfolio() {
           ))}
         </div>
       </section>
+
+      {activeCert && (
+        <div className="cert-modal" onClick={() => setActiveCert(null)}>
+          <button className="cert-modal-close" onClick={() => setActiveCert(null)} aria-label="Close certificate">×</button>
+          <div className="cert-modal-inner" onClick={(e) => e.stopPropagation()}>
+            <img className="cert-modal-img" src={activeCert.image} alt={`${activeCert.title} certificate`} />
+          </div>
+        </div>
+      )}
 
       {/* ── CONTACT ── */}
       <section id="Contact" className="section-pad" style={{
