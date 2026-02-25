@@ -10,6 +10,7 @@ import cert8 from "../assets/cert/4.jpeg";
 import cert9 from "../assets/cert/7.jpeg";
 import cert10 from "../assets/cert/9.jpeg";
 import cert11 from "../assets/cert/11.jpeg";
+import resumePdf from "../assets/Resume.pdf";
 
 /* ─── GLOBAL STYLES ───────────────────────────────────────────────── */
 const GLOBAL_CSS = `
@@ -508,9 +509,8 @@ export default function Portfolio() {
   }, []);
 
   const downloadCV = () => {
-    const cvPath = "../assets/Resume.pdf";
     const link = document.createElement("a");
-    link.href = cvPath;
+    link.href = resumePdf;
     link.download = "Kishor_Kumar_Resume.pdf";
     document.body.appendChild(link);
     link.click();
