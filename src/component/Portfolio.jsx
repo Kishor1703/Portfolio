@@ -309,6 +309,14 @@ const EXPERTISE = [
 
 const PROJECTS = [
   {
+    icon: "💼",
+    title: "TalentSphere",
+    desc: "A full-stack job recruitment platform connecting Job Seekers, Recruiters, and Admins. Features role-based authentication, job posting & application management, resume upload, and interactive dashboards for platform monitoring.",
+    tech: ["React.js", "Node.js", "Express.js", "MySQL"],
+    liveUrl: "https://talent-sphere-qqrm.vercel.app/",
+    githubUrl: "",
+  },
+  {
     icon: "📝",
     title: "Feedback System",
     desc: "A web-based student feedback system to collect and analyze faculty performance. Features interactive dashboards with real-time data visualization using Chart.js.",
@@ -402,9 +410,9 @@ const CERTS = [
   { title: "Designing Course", org: "Qaroo Learnings India PVT", type: "Course", emoji: "📝", image: cert7 },
   { title: "Python", org: "CADD TECHNOLOGIES", type: "Course", emoji: "📝", image: cert8 },
   { title: "Web Technologies", org: "SILICON software services", type: "Course", emoji: "📝", image: cert9 },
-  { title: "Internal SIH", org: "SSM IET", type: "Project", emoji: "📝", image: cert11},
+  { title: "Internal SIH", org: "SSM IET", type: "Project", emoji: "📝", image: cert11 },
   { title: "Award", org: "SSM IET", type: "Project", emoji: "📝", image: cert5 },
- 
+
 ];
 
 const STATS = [
