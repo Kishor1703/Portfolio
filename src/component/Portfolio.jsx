@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+﻿import { useState, useEffect, useRef } from "react";
 import profileImg from "../assets/kishorkumar.jpeg";
 import cert1 from "../assets/cert/10.jpeg";
 import cert2 from "../assets/cert/6.jpeg";
@@ -10,7 +10,7 @@ import cert8 from "../assets/cert/4.jpeg";
 import cert9 from "../assets/cert/7.jpeg";
 import cert10 from "../assets/cert/9.jpeg";
 import cert11 from "../assets/cert/11.jpeg";
-import resumePdf from "../assets/Resume.pdf";
+import resumePdf from "../assets/Kishor_Kumar_Resume.pdf";
 
 /* ─── GLOBAL STYLES ───────────────────────────────────────────────── */
 const GLOBAL_CSS = `
