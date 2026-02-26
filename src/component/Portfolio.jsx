@@ -974,23 +974,77 @@ export default function Portfolio() {
             </div>
           </FadeSection>
 
-          <div className="grid-2" style={{ display: "grid", gridTemplateColumns: "1fr 1.4fr", gap: "2.5rem", alignItems: "start" }}>
+          <div className="grid-2" style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr)", maxWidth: "640px", margin: "0 auto", gap: "2.5rem", alignItems: "start" }}>
             <FadeSection>
               <div style={{ display: "flex", flexDirection: "column", gap: "1.2rem" }}>
                 {[
                   { icon: "📧", label: "Email", val: "pskishor196@gmail.com", color: "#00e5ff" },
-                  { icon: "📍", label: "Location", val: "Dindigul, Tamil Nadu", color: "#a855f7" },
                   { icon: "📱", label: "Phone", val: "+91 9659844778", color: "#ff6b35" },
+                  { icon: "📍", label: "Location", val: "Dindigul, Tamil Nadu", color: "#a855f7" },
+                  
                 ].map(info => (
-                  <div key={info.label} className="glass-card" style={{ padding: "1.2rem 1.5rem", display: "flex", gap: "1rem", alignItems: "center" }}>
-                    <div style={{
-                      width: "46px", height: "46px", borderRadius: "14px", flexShrink: 0,
-                      background: `${info.color}18`, border: `1px solid ${info.color}30`,
-                      display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.2rem",
-                    }}>{info.icon}</div>
+                  <div
+                    key={info.label}
+                    className="glass-card"
+                    style={{
+                      padding: "1.2rem 1.5rem",
+                      display: "flex",
+                      gap: "1rem",
+                      alignItems: "center"
+                    }}
+                  >
+                    <div
+                      style={{
+                        width: "46px",
+                        height: "46px",
+                        borderRadius: "14px",
+                        flexShrink: 0,
+                        background: `${info.color}18`,
+                        border: `1px solid ${info.color}30`,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        fontSize: "1.2rem",
+                        
+                      }}
+                    >
+                      {info.icon}
+                    </div>
+
                     <div>
-                      <div style={{ color: info.color, fontSize: "0.73rem", fontFamily: "'Syne',sans-serif", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: "0.2rem" }}>{info.label}</div>
-                      <div style={{ fontWeight: 500, fontSize: "0.9rem", wordBreak: "break-all" }}>{info.val}</div>
+                      <div
+                        style={{
+                          color: info.color,
+                          fontSize: "0.73rem",
+                          fontFamily: "'Syne',sans-serif",
+                          fontWeight: 700,
+                          letterSpacing: "0.1em",
+                          textTransform: "uppercase",
+                          marginBottom: "0.2rem"
+                        }}
+                      >
+                        {info.label}
+                      </div>
+
+                      <div style={{ fontWeight: 500, fontSize: "0.9rem", wordBreak: "break-all" }}>
+                        {info.label === "Email" ? (
+                          <a
+                            href={`mailto:${info.val}`}
+                            style={{ textDecoration: "none", color: "inherit" }}
+                          >
+                            {info.val}
+                          </a>
+                        ) : info.label === "Phone" ? (
+                          <a
+                            href={`tel:${info.val}`}
+                            style={{ textDecoration: "none", color: "inherit" }}
+                          >
+                            {info.val}
+                          </a>
+                        ) : (
+                          info.val
+                        )}
+                      </div>
                     </div>
                   </div>
                 ))}
@@ -1003,29 +1057,7 @@ export default function Portfolio() {
               </div>
             </FadeSection>
 
-            <FadeSection style={{ transitionDelay: "0.15s" }}>
-              <div className="glass-card" style={{ padding: "2.5rem" }}>
-                <div style={{ marginBottom: "1.4rem" }}>
-                  <label style={{ display: "block", fontFamily: "'Syne',sans-serif", fontWeight: 600, fontSize: "0.78rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "#8888aa", marginBottom: "0.5rem" }}>Name</label>
-                  <input className="form-input" placeholder="Your full name" />
-                </div>
-                <div style={{ marginBottom: "1.4rem" }}>
-                  <label style={{ display: "block", fontFamily: "'Syne',sans-serif", fontWeight: 600, fontSize: "0.78rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "#8888aa", marginBottom: "0.5rem" }}>Email</label>
-                  <input className="form-input" type="email" placeholder="your@email.com" />
-                </div>
-                <div style={{ marginBottom: "1.4rem" }}>
-                  <label style={{ display: "block", fontFamily: "'Syne',sans-serif", fontWeight: 600, fontSize: "0.78rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "#8888aa", marginBottom: "0.5rem" }}>Subject</label>
-                  <input className="form-input" placeholder="Job opportunity / collaboration..." />
-                </div>
-                <div style={{ marginBottom: "2rem" }}>
-                  <label style={{ display: "block", fontFamily: "'Syne',sans-serif", fontWeight: 600, fontSize: "0.78rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "#8888aa", marginBottom: "0.5rem" }}>Message</label>
-                  <textarea className="form-input" rows={5} placeholder="Tell me about the role or project..." style={{ resize: "vertical" }} />
-                </div>
-                <button className="glow-btn" style={{ width: "100%", padding: "1rem", fontSize: "1rem", borderRadius: "12px" }}>
-                  Send Message ✉️
-                </button>
-              </div>
-            </FadeSection>
+
           </div>
         </div>
       </section>
