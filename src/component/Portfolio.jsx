@@ -10,7 +10,9 @@ import cert8 from "../assets/cert/4.jpeg";
 import cert9 from "../assets/cert/7.jpeg";
 import cert10 from "../assets/cert/9.jpeg";
 import cert11 from "../assets/cert/11.jpeg";
+import img from "../assets/cert/12.jpg";
 import resumePdf from "../assets/Kishor_Kumar_Resume.pdf";
+
 
 /* ─── GLOBAL STYLES ───────────────────────────────────────────────── */
 const GLOBAL_CSS = `
@@ -413,6 +415,7 @@ const CERTS = [
   { title: "Web Technologies", org: "SILICON software services", type: "Course", emoji: "📝", image: cert9 },
   { title: "Internal SIH", org: "SSM IET", type: "Project", emoji: "📝", image: cert11 },
   { title: "Award", org: "SSM IET", type: "Project", emoji: "📝", image: cert5 },
+  { title: "College Website", org: "SSM IET", type: "Project", emoji: "🏆", image: img },
 
 ];
 
