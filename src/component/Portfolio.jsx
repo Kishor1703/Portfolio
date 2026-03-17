@@ -120,6 +120,11 @@ const GLOBAL_CSS = `
 
   .stat-num { font-family:'Syne',sans-serif; font-size:3rem; font-weight:800; }
 
+  @keyframes fadeInScale { 
+    0% { opacity: 0; transform: scale(0.8); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+
   .cert-tab {
     padding: 0.5rem 1.4rem; border-radius: 50px; border: 1.5px solid rgba(255,255,255,0.1);
     background: transparent; color: #8888aa; font-family: 'Syne',sans-serif;
@@ -451,8 +456,10 @@ function useCountUp(target, run) {
     let start = null;
     const step = (ts) => {
       if (!start) start = ts;
-      const p = Math.min((ts - start) / 1800, 1);
-      setVal(Math.floor(p * target));
+      const p = Math.min((ts - start) / 2200, 1);
+      // Cubic-bezier easing function (ease-out: cubic)
+      const eased = 1 - Math.pow(1 - p, 3);
+      setVal(Math.round(eased * target));
       if (p < 1) requestAnimationFrame(step);
     };
     requestAnimationFrame(step);
@@ -481,12 +488,12 @@ function SkillBar({ name, level }) {
   );
 }
 
-function StatCard({ icon, val, suffix, label, run }) {
+function StatCard({ icon, val, suffix, label, run, style }) {
   const count = useCountUp(val, run);
   return (
-    <div style={{ textAlign: "center", padding: "2.5rem 2rem" }}>
+    <div style={{ textAlign: "center", padding: "2.5rem 2rem", animation: run ? 'fadeInScale 0.8s ease-out forwards' : 'none', ...style }}>
       <div style={{ fontSize: "2.2rem", marginBottom: "0.5rem" }}>{icon}</div>
-      <div className="stat-num grad-text">{count}{suffix}</div>
+      <div className="stat-num grad-text" style={{ transition: 'transform 0.3s ease-out', transform: run ? 'scale(1)' : 'scale(0.8)', opacity: run ? 1 : 0.7 }}>{count}{suffix}</div>
       <div style={{ color: "#8888aa", fontSize: "0.85rem", marginTop: "0.4rem", fontWeight: 500 }}>{label}</div>
     </div>
   );
@@ -796,7 +803,7 @@ export default function Portfolio() {
         borderBottom: "1px solid rgba(255,255,255,0.05)",
       }}>
         <div style={{ maxWidth: "1000px", margin: "0 auto", display: "flex", justifyContent: "space-around", flexWrap: "wrap", gap: "1rem" }}>
-          {STATS.map(s => <StatCard key={s.label} {...s} run={statsRun} />)}
+          {STATS.map((s, i) => <StatCard key={s.label} {...s} run={statsRun} style={{ animationDelay: `${i * 0.15}s` }} />)}
         </div>
       </div>
 
