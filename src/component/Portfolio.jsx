@@ -318,6 +318,14 @@ const EXPERTISE = [
 const PROJECTS = [
   {
     icon: "💼",
+    title: "Task Manager Web Application",
+    desc: "Built RBAC-based task manager using Spring Boot and PostgreSQL. Manager assigns tasks; employees update progress via Kanban board. Implemented REST APIs, authentication, and drag-and-drop UI",
+    tech: ["React.js", "SpringBoot", "PostgreSQL"],
+    liveUrl: "https://task-manager-17.vercel.app/",
+    githubUrl: "",
+  },
+  {
+    icon: "🧑🏻‍💻",
     title: "TalentSphere",
     desc: "A full-stack job recruitment platform connecting Job Seekers, Recruiters, and Admins. Features role-based authentication, job posting & application management, resume upload, and interactive dashboards for platform monitoring.",
     tech: ["React.js", "Node.js", "Express.js", "MySQL"],
@@ -373,6 +381,16 @@ const PROJECTS = [
 ];
 
 const EXPERIENCE = [
+  {
+    role: "Freelance Full Stack Developer",
+    company: "Self-Employed",
+    period: "Apr 2025 – Present",
+    points: [
+      "Currently building full-stack web applications for clients using modern frontend and backend technologies.",
+      "Handling end-to-end development including UI implementation, API integration, database design, and deployment.",
+      "Collaborating directly with clients to translate requirements into scalable and responsive digital products.",
+    ],
+  },
   {
     role: "Full Stack Developer Intern",
     company: "MailerJobs, Bangalore",
@@ -753,7 +771,7 @@ export default function Portfolio() {
                 <span className="grad-text2">My Story</span>
               </h3>
               <p style={{ color: "#8888aa", lineHeight: 1.8, fontSize: "0.93rem", marginBottom: "1rem" }}>
-                Motivated Computer Science graduate with hands-on experience in Full Stack Development. Learning Docker, CI/CD pipelines, and cloud deployment. Skilled in building scalable web applications and automating deployments using GitHub Actions.
+                Motivated Computer Science graduate currently working as a Freelance Full Stack Developer. Hands-on experience in building scalable web applications, with growing knowledge in Docker, CI/CD pipelines, cloud deployment, and automating workflows using GitHub Actions.
               </p>
               <p style={{ color: "#8888aa", lineHeight: 1.8, fontSize: "0.93rem" }}>
                 Seeking an entry-level Software / DevOps Engineer role.
