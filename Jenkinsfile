@@ -13,6 +13,7 @@ pipeline{
     stages{
         stage('Clone'){
             steps{
+                git branch: 'main',
                 git'https://github.com/Kishor1703/Portfolio.git'
             }
         }
