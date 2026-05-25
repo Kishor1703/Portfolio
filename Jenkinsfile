@@ -12,25 +12,25 @@ pipeline{
     
     stages{
         stage('Clone'){
-            step{
+            steps{
                 git'https://github.com/Kishor1703/Portfolio.git'
             }
         }
         
         stage('Dependencies Installation'){
-            step{
+            steps{
                 sh'npm install'
             }
         }
         
         stage('build'){
-            step{
+            steps{
                 sh'npm run build'
             }
         }
         
         stage('Deploye to vercel'){
-            step{
+            steps{
                 sh'npx vercel --prod --token=$VERCEL_TOKEN --yes'
             }
         }
