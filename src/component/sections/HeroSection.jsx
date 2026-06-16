@@ -12,8 +12,7 @@ export default function HeroSection({ downloadCV, openEmail, profileLinks, scrol
           position: "absolute",
           inset: 0,
           zIndex: 0,
-          backgroundImage:
-            "linear-gradient(rgba(0,229,255,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,255,0.04) 1px,transparent 1px)",
+          
           backgroundSize: "60px 60px",
         }}
       />
